@@ -1,0 +1,112 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Recommandations{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/csscontenu/popular-stars.css') }}">
+{% endblock %}
+{% block content %}
+
+<div class="main-contenu mt-4">
+
+    <div class="contenu-main">
+
+        {% if filmsCarr|length > 0 %}
+        <div id="xl-carousel" class="carousel slide margintop width" data-ride="carousel">
+            <div class="carousel-inner">
+
+                {% for filmCarr in filmsCarr %}
+                <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+                    <img src="{% if filmCarr.film.affiche %}{{ 'http://image.tmdb.org/t/p/w342/'~filmCarr.film.affiche }}{% else %}{{ asset('img/popcorn.jpg') }}{% endif %}"
+                        class="d-block mx-auto img-fluid dimCarr" alt="...">
+                    <div class="carousel-caption d-none d-md-block  bk_film margina">
+                        <div class="lien-carousel flex flexdr text-center jcenter">
+                        <a class="jcenter flex flexdr" href="{{ path('details_film',{slug: filmCarr.film.slug}) }}">
+                        <p class="colorp jcenter margt">{{ filmCarr.film.titre }}</p></a>
+                        <div class="stars pl-2 margt" value="{{ filmCarr.noteMoy }}"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <a class="carousel-control-prev" href="#xl-carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#xl-carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        {% endif %}
+
+        <div class="contenu-a-affiche marginl margintop margina">
+            <h1 class="title split-character intro-site margintop margina">A découvrir sur AfterWatch</h1>
+        </div>
+        <div class="contenu-a-affiche  margina">
+            <div id="contenu-a-affiche  margina"></div>
+
+            <section>
+                <div class="section-film-vu">
+                    <div class="film-a-affiche">
+                        <div class="a-affiche-resultats">
+                            <h2 class="tout-voir-affiche">
+                                <a href="{{ path('welcome') }}"><button class="btn btn-color" type="button" data-rel="link">Accueil</button></a>
+                                <h2 class="tout-voir-affiche ">Recommandations</h2>
+                            </h2>
+                        </div>
+                    </div>
+
+                    <ul class="contenu-film-affiche">
+
+                        {% for film in films %}
+
+
+                        <li class="img-a-affiche w-100">
+
+                            <a class="a-film film-a" href="{{ path('details_film',{slug: film.film.slug}) }}"
+                                data-rel="button">
+                                <div class="container">
+                                    <div class="card">
+
+                                        <div class="face face1">
+                                            <div class="content">
+                                                <img class="dimCard" alt="" src="{% if film.film.affiche %}{{ 'http://image.tmdb.org/t/p/w185/'~film.film.affiche }}{% else %}{{ asset('img/popcorn.jpg') }}{% endif %}"/>
+                                            </div>
+                                        </div>
+                                        <div class="face face2">
+                                            <div class="content dimCard">
+                                                <a class="w-100 m-0 p-0"
+                                                    href="{{ path('details_film',{slug: film.film.slug}) }}">
+                                                    <h5 class="text-center">{{ film.film.titre }}</h5>
+                                                </a>
+                                                <div class="stars text-center" value="{{ film.noteMoy }}"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </a>
+
+                        </li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+
+
+
+        </div>
+
+    </div>
+
+    {% endblock %}
+
+    {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/utilisateur/critique-stars.js') }}"></script>
+    {% endblock %}

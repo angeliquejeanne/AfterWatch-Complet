@@ -1,0 +1,461 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Open+Sans&display=swap%27');
+/*police des titre*/
+.font {
+    font-family: "Courgette";
+    font-size: 60px;
+}
+/*couleur du titre au survol*/
+.font:hover {
+    color: #0b7c7e;
+}
+/*met en flex*/
+.flex{
+    display: flex;
+}
+/*met les flex en ligne*/
+.flexdr{
+    flex-direction: row;
+}
+/*met les flex en colonne*/
+.flexdc{
+    flex-direction: column;
+}
+/*centre les flex*/
+.jcenter{
+    justify-content: center;
+}
+/*justify content space-between des bouton tout voir*/
+.jbet{
+    justify-content: space-between;
+}
+/*met les flex a droite*/
+.jend{
+    justify-content: end;
+}
+/*centre le text*/
+.textc{
+    text-align: center;
+}
+/*align au milieu par rapport au haut*/
+.alignit{
+    align-items: center;
+}
+/*margin top 0 qui permet le centrage du titre dans carousel*/
+.margt{
+    margin-top: -0.7em;
+}
+/*margint haut du titre*/
+.margint{
+    margin-top: 1em;
+}
+/*margin auto met au centre*/
+.margina{
+    margin: auto;
+}
+/*margin a droite des bouton*/
+.marginr{
+    margin-right: 1em;
+}
+/*margin haut*/
+.margintop{
+    margin-top: 12em;
+}
+/* margin bas*/
+.marginb{
+    margin-bottom: 4em;
+}
+/*margin a gauche*/
+.marginl{
+    margin-left: 2em;
+}
+/*determiner la taille a 100%*/
+.width{
+    width: 100%;
+}
+/*couleur donner au bouton */
+.btn-color{
+    background-color: #009391;
+    color: white;
+} 
+/*couleur donner au bouton au survol*/
+.btn-color:hover{
+    background-color: #006e6d;
+    color: white;
+}
+body
+{
+    background-color: #e7e7e7;
+    color: black;
+    font-size: 18px;
+    height: 100%;
+}
+.rep-contenu-h
+{
+    height: 140px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/*début du header*/
+.fond-h
+{
+    background-color: #e7e7e7;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 8%;
+    z-index: 9;
+    display: block;
+    box-sizing: border-box;
+}
+.contenu-h /*logo*/
+{
+    left: 50%;
+    max-width: 1500px;
+    padding: 20px 20px;
+    position: relative;
+    transform: translateX(-50%);
+    width: 100%;
+}
+.contenu-h a
+{
+    text-decoration: none;
+    color: black;
+    box-sizing: border-box;
+}
+span
+{
+    box-sizing: border-box;
+}
+/*margin au dessus du logo*/
+.marget{
+    margin-top: -5em;
+}
+/*taille du logo*/
+.logo-med 
+{
+    height: 140px;
+    width: 152px; 
+}
+.partie-h-b
+{
+    width: 100%;
+    box-sizing: border-box;
+}
+.haut
+{
+    height: 45px;
+    position: relative;
+    z-index: 1;
+    box-sizing: content-box;
+}
+form
+{
+    width: 200%;
+}
+.buttonr
+{
+    background-color: #009193;
+    border-radius: 15%;
+    box-shadow: transparent;
+    margin-left: 4%;
+    -webkit-margin-start: 20%;
+}
+.recherche-auto-flex
+{
+    border: 1px solid inherit;
+    height: 100%;
+    padding: 0 10px;
+    width: 100%;
+}
+.h-recherche
+{
+    background-color: inherit;
+    border: 0;
+    color: black;
+    font-size: 18px;
+    height: 100%;
+    outline: 0;
+    padding: 10px ;
+    position: relative;
+    margin: 0;
+    line-height: 18px;
+    transition: all .3s ease;
+    -webkit-user-select: text;    
+}
+.rechercher
+{
+    background-color: inherit;
+    color: black;
+    display: block;
+    font-size: 18px;
+    margin-left: 10px;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+.bas
+{
+    height: 40px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+}
+.barre-menus-navig
+{
+    width: 100%;
+    box-sizing: border-box;
+}
+/*enleve les puces*/
+.ul
+{
+    list-style-type: none;
+    font-size: 20px;
+}
+/* bordure du menu dans le ul*/
+.bordure{
+    border: 2px solid #009193;
+    border-radius: 10px;
+}
+/*definir un curseur et un margin droite des li*/
+.nav-li
+{
+    margin-right: 15px;
+    cursor: pointer;
+}
+/*coleur et soulignage none des a lien*/
+.nav-li a
+{
+    color: #009193;
+    text-decoration: none;
+}
+/* fin du header */
+
+/* Caroussel*/
+.dimCarr
+{
+    width: 342px;
+    height: 413px;
+}
+/*lien du carousel qui dirige vers le film*/
+.lien-carousel{
+    color: #2e2e2e;
+}
+/*lien du carousel qui dirige vers le film*/
+.lien-carousel:hover{
+    color: #888888da;
+}
+/*titre dans limage*/
+.bk_film{
+    background-color: #a1a1a18c;
+    width: 24.5%;
+    height: 10%;
+}
+/*couleur du titre du film et taille*/
+.colorp{
+    color: #ebebeb;
+    font-size: 18px;
+}
+/*fin du carousel*/
+/* Début Main */
+.main-contenu
+{
+    
+    position: relative;
+    box-sizing: content-box;
+}
+.contenu-a-affiche
+{
+    max-width: 90%;
+    box-sizing: border-box;
+}
+.intro-site
+{
+   margin: 20px;
+   font-size: 46px;
+   line-height: 50px;
+   display: block;
+}
+h1
+{
+    font-weight: inherit;
+}
+
+#contenu-a-affiche
+{
+    margin: 0 10px 10px;
+    box-sizing: border-box;
+}
+.section-film-a-affiche
+{
+    margin-bottom: 25px;
+    width: 100%;
+    box-sizing: border-box;
+   
+}
+
+/*h2 actuellement a l'affiche*/
+.tout-voir-affiche
+{
+    font-size: 24px;
+}
+h2 a
+{
+    display: inline;
+    font-weight: inherit;
+    margin: 0;
+    padding: .5%;
+    color: black;
+}
+.contenu-film-affiche
+{
+    display: grid;
+    grid-template-columns: repeat(4, max-content);/*nombre maximum d'affiche sur la ligne*/
+    justify-content: space-evenly;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.img-a-affiche
+{
+    width: calc(25% - 10px);
+    margin: 0 3px 15px;
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+}
+.film-a
+{
+    display: block;
+}
+.a-film
+{
+    color: black;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+img
+{
+    border: 0;
+    vertical-align: top;
+}
+.titre-film-a
+{
+    color: black;
+    font-size: 16px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+}
+span
+{
+    box-sizing: border-box;
+}
+.titre-annee .annee-titre
+{
+    text-align: left;
+    width: 100%;
+    margin-bottom: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: normal;
+    font-size: 15px;
+    line-height: 17px;
+    display: block;
+    box-sizing: border-box;
+    color: crimson;
+    list-style-type: none;
+}
+
+.section-film-a-venir-affiche
+{
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.section-film-a-voir
+{
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.section-film-vu
+{
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/*Dimensions de l'image des cards*/
+
+.dimCard{
+    width: 150px;
+    height: 204px;
+}
+/*Bouton delete film de la collection*/
+
+.boutonSuppCollection{
+    position: absolute;
+    top: 10%;
+}
+
+/*couleur donner au bouton */
+.delete-color{
+    background-image:linear-gradient(60deg, #02aca9, #2d8d8d);
+    color: white;
+} 
+/*couleur donner au bouton au survol*/
+.delete-color:hover{
+    background-image:linear-gradient(60deg, #1e9593, #2e8f8d);
+    color: white;
+}
+
+/*Notification "new" dans myFilms*/
+
+/*display flex*/
+.display{
+    display: flex;
+    position: absolute;
+    top: 80%;
+    left: 150%;
+    z-index: 1;
+   }
+   /*justify content center*/
+   .jcenter{
+       justify-content: center;
+   }
+   /* align items center*/
+   .alignit{
+       align-items: center;
+   }
+   .nouveau
+   {
+     width: auto;
+     height: 2em;
+     padding: 0 .75em;
+     background: #2e8f8d;
+     border-radius: 0.2em;
+     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+     font-family: Arial;
+     font-size: 20px;
+     color: #FFF;
+     text-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+   }
+
+   .nouveau p{
+       margin-bottom: 0;
+   }
+
+section
+{
+    border-bottom: 1px grey solid;
+    display: flex;
+    justify-content: center;
+    padding-top: 2%;
+}
+/* fin Main */

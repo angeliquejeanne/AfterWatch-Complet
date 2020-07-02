@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Critiques de {{ film.titre }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/csscontenu/contenucritique.css') }}">
+<style>
+    .backgrounddynamique {
+        background:url({{ 'http://image.tmdb.org/t/p/w780/'~film.affiche }});
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{% if film.affiche == null %}
+
+<body class="background">
+    {% else %}
+
+    <body class="backgrounddynamique">
+        {% endif %}
+        <section class="flex jcenter ">
+            {{ form_start(form, {'attr': {'class': 'jumbotron width margint'}}) }}
+            <h3 class="font textc">Titre du film</h3>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.titre, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div id="stars" class="flex jcenter margintop col-md-6">
+                    {{ form_row(form.note) }}
+                </div>
+                <div class="form-group col-md-12">
+                    {{ form_row(form.contenu, {'attr': {'class': 'form-control','rows': 20}}) }}
+                </div>
+            </div>
+
+            <div class="flex jcenter marget">
+                <button class="btn btn-color marginr">Envoyer</button></a>
+                <a href="{{ path('critiques', {slug: film.slug}) }}"><button type="button"
+                        class="btn btn-danger">Retour</button></a>
+            </div>
+
+            {{ form_end(form) }}
+
+            <!--<div id="stars" class="flex jcenter margintop col-md-6">
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+            </div> -->
+
+        </section>
+
+        {% endblock %}
+
+        {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/utilisateur/add-critique.js') }}"></script>
+        {% endblock %}

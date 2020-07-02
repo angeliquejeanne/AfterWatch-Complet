@@ -1,0 +1,166 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Accueil{% endblock %}
+
+{% block content %}
+<div class="main-contenu mt-4">
+
+    <div class="contenu-main">
+
+        {% if filmsCarr|length > 0 %}
+        <div id="xl-carousel" class="carousel slide margintop width" data-ride="carousel">
+            <div class="carousel-inner">
+
+                {% for filmCarr in filmsCarr %}
+
+                <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+                    <img src="{% if filmCarr.affiche %}{{ 'http://image.tmdb.org/t/p/w342/'~filmCarr.affiche }}{% else %}{{ asset('img/popcorn.jpg') }}{% endif %}"
+                        class="d-block mx-auto img-fluid dimCarr" alt="...">
+                    <div class="carousel-caption d-none d-md-block  bk_film margina">
+                        <a class="lien-carousel  flex flexdr jcenter" href="{{ path('details_film',{slug: filmCarr.slug}) }}">
+                        <p class=" colorp flex flexdr jcenter margt">{{ filmCarr.titre }}</p></a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <a class="carousel-control-prev" href="#xl-carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#xl-carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        {% endif %}
+
+        <div class="contenu-a-affiche marginl ">
+            <h1 class="title split-character intro-site margintop margina">A découvrir sur AfterWatch</h1>
+        </div>
+        <div class="contenu-a-affiche margina">
+            <div id="contenu-a-affiche"></div>
+
+            <section>
+                <div class="section-film-vu">
+                    <div class="film-a-affiche">
+                        <div class="flex jbet">
+                                <button class=" btn btn-color">Actuellement à l'affiche</button>
+                                <a href="{{ path('alaffiche') }}"><button class="tout-voir btn btn-color" type="button" data-rel="link">Tout voir</button></a>
+                        </div>
+                    </div>
+
+                    <ul class="contenu-film-affiche">
+                        {% for filmAffiche in filmsAffiche %}
+                        <li class="img-a-affiche">
+                            <a class="a-film film-a" href="{{ path('details_film',{slug: filmAffiche.slug}) }}"
+                                data-rel="button">
+                                <div class="container">
+                                    <div class="card">
+                                        <div class="face face1">
+                                            <div class="content">
+                                                <img class="dimCard" data-rel="poster" alt=""
+                                                    src="{% if filmAffiche.affiche %}{{ 'http://image.tmdb.org/t/p/w154/'~filmAffiche.affiche }}{% else %}{{ asset('img/popcorn.jpg') }}{% endif %}"
+                                                    />
+                                            </div>
+                                        </div>
+                                        <div class="face face2">
+                                            <div class="content justify-content-center align-items-start dimCard">
+
+                                                <a href="{{ path('details_film',{slug: filmAffiche.slug}) }}"
+                                                    class="w-100 p-0 m-0">
+                                                    <h5 class="text-center">{{ filmAffiche.titre }}
+                                                        </h5>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </section>
+
+            <section>
+                <div class="section-film-vu">
+                    <div class="film-a-affiche">
+                        <div class="flex jbet">
+                                <button class="btn btn-color">Les futures sorties</button>
+                                <a href="{{ path('futures_sorties') }}"><button class="btn btn-color" type="button" data-rel="link">Tout voir</button></a>
+                        </div>
+                    </div>
+
+                    <ul class="contenu-film-affiche">
+                        {% for filmSortie in filmsSortie %}
+
+                        <li class="img-a-affiche">
+                            <a class="a-film film-a" href="{{ path('details_film',{slug: filmSortie.slug}) }}"
+                                data-rel="button">
+                                <div class="container">
+                                    <div class="card">
+                                        <div class="face face1">
+                                            <div class="content">
+                                                <img class="dimCard" data-rel="poster" alt=""
+                                                    src="{% if filmSortie.affiche %}{{ 'http://image.tmdb.org/t/p/w154/'~filmSortie.affiche }}{% else %}{{ asset('img/popcorn.jpg') }}{% endif %}"
+                                                    />
+                                            </div>
+                                        </div>
+                                        <div class="face face2">
+                                            <div class="content justify-content-center align-items-start dimCard">
+
+                                                <a class="w-100 m-0 p-0"
+                                                    href="{{ path('details_film',{slug: filmSortie.slug}) }}">
+                                                    <h5 class="text-center">{{ filmSortie.titre }}
+                                                        </h5>
+                                                </a>
+                            </a>
+                            <p class="text-center">{{ filmSortie.date|date('d M Y',"Europe/Paris") }}</p>
+
+                </div>
+        </div>
+    </div>
+</div>
+</a>
+</li>
+
+{% endfor %}
+</ul>
+</div>
+</section>
+
+
+
+</div>
+</div>
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    (function () {
+        var elements, newContent = "";
+        elements = document.getElementsByClassName('split-character');
+        for (var element = 0; element < elements.length; ++element) {
+            newContent += "<span>"
+            for (var character = 0; character < elements[element].innerText.length; character++) {
+                if (elements[element].innerText[character] !== " ") {
+                    newContent += "<span style='animation-delay: " + 0.035 * character + "s'>" + elements[element]
+                        .innerText[character] + "</span>";
+                } else {
+                    newContent += "</span> <span>";
+                }
+            }
+            newContent += "</span>"
+            elements[element].innerHTML = newContent;
+            newContent = "";
+        }
+
+    })();
+</script>
+{% endblock %}

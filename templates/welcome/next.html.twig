@@ -1,0 +1,96 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Futures sorties{% endblock %}
+
+{% block content %}
+
+<div class="main-contenu mt-4">
+
+    <div class="contenu-main">
+
+        {% if filmsCarr|length > 0 %}
+        <div id="xl-carousel" class="carousel slide margintop" data-ride="carousel">
+            <div class="carousel-inner">
+
+                {% for filmCarr in filmsCarr %}
+                <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+                    <img src="{% if filmCarr.affiche %}{{ 'http://image.tmdb.org/t/p/w342/'~filmCarr.affiche }}{% else %}{{ asset('img/popcorn.jpg') }}{% endif %}"
+                        class="d-block mx-auto img-fluid dimCarr" alt="...">
+                    <div class="carousel-caption d-none d-md-block  bk_film margina">
+                        <a class="lien-carousel  flex flexdr jcenter" href="{{ path('details_film',{slug: filmCarr.slug}) }}">
+                        <p class="lien-carousel colorp flex flexdr jcenter margt">{{ filmCarr.titre }}</p></a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <a class="carousel-control-prev" href="#xl-carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#xl-carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        {% endif %}
+
+        <div class="contenu-a-affiche marginl margintop margina">
+           <h1 class="title split-character intro-site  margintop margina">A découvrir sur AfterWatch</h1>
+        </div>
+        <div class="contenu-a-affiche margina">
+            <div id="contenu-a-affiche"></div>
+
+            <section>
+                <div class="section-film-vu">
+                    <div class="film-a-affiche">
+                        <div class="a-affiche-resultats">
+                            <h2 class="tout-voir-affiche">
+                               <a href="{{ path('welcome') }}"> <button class="btn btn-color" type="button" data-rel="link">Accueil</button></a>
+                                <h2 class="tout-voir-affiche">Les futures sorties</h2>
+                            </h2>
+                        </div>
+                    </div>
+
+                    <ul class="contenu-film-affiche">
+
+                        {% for film in films %}
+
+
+                        <li class="img-a-affiche">
+                            <a class="a-film film-a" href="{{ path('details_film',{slug: film.slug}) }}" data-rel="button">
+                                <div class="container">
+                                    <div class="card">
+                                        <div class="face face1">
+                                            <div class="content">
+                                                <img class="dimCard" data-rel="poster" alt=""
+                                                    src="{% if film.affiche %}{{ 'http://image.tmdb.org/t/p/w185/'~film.affiche }}{% else %}{{ asset('img/popcorn.jpg') }}{% endif %}"
+                                                    />
+                                            </div>
+                                        </div>
+                                        <div class="face face2">
+                                            <div class="content dimCard">
+                                                <a class="w-100 m-0 p-0"
+                                                    href="{{ path('details_film',{slug: film.slug}) }}">
+                                                    <h5 class="text-center">{{ film.titre }}</h5>
+                                                </a>
+                                                <p class="text-center">{{ film.date|date('d M Y',"Europe/Paris") }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+
+
+
+        </div>
+
+    </div>
+
+    {% endblock %}

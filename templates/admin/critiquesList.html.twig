@@ -1,0 +1,83 @@
+{% extends 'baseAdmin.html.twig' %}
+
+
+{% block title %} {{ parent() }} - Critique{% endblock %}
+
+{% block body %}
+<div class="bg-success">
+    {% for message in app.flashes('success') %}
+    {{ message }}
+    {% endfor %}
+</div>
+<section class="flex jcenter">
+    <table id="thèmes" class=" textc margint marginb">
+        <thead class="gras sizeg">
+            <th>Titre de la critique</th>
+            <th>Titre Film</th>
+            <th>Posté par</th>
+            <th>Note</th>
+            <th>Slug</th>
+            <th>Contenu de la critique</th>
+            <th>Actions</th>
+        </thead>
+
+        <tbody>
+            {% for critique in critiques %}
+            {% if critique.publication == false %}
+            <tr class="rouge">
+                {% else %}
+            <tr>
+                {% endif %}
+                <td>{{ critique.titre }}</td>
+                <td>{{ critique.idfilm.titre }}</td>
+                <td>{{ critique.idutilisateur.username }}</td>
+                <td>{{ critique.note }}</td>
+                <td>{{ critique.slug }}</td>
+                <td>{% if critique.contenu|length > 80 %}{{ critique.contenu|slice(0,79) }}(...){% else %}{{ critique.contenu }}{% endif %}
+                </td>
+
+                <td>{% if critique.publication == 0 %}
+                    <a href="{{ path('critique_verifier',{id: critique.id}) }}"><button
+                            class="btn btn-info btn-color marginr">Vérifier avant de publier</button></a>
+                    {% else %}
+                    <a href="{{ path('critique_modifier', {id: critique.id}) }}"><button type="button"
+                            class="btn btn-info btn-color marginr ">Modifier</button></a>
+                    {% endif %}
+                    <a href="{{ path('admin_confirmcritdelete', {id: critique.id}) }}"><button type="button"
+                            class="btn btn-danger btnsup">Supprimer</button></a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td>Aucune Critique Trouvée</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</section>
+<nav class="margintnull">
+    {% set route = 'admin_critiqueslist' %}
+    {% set params = {} %}
+    <ul class="pagination">
+        {% if current_page > 1 %}
+        <li class="page-item">
+            <a class="page-link apagination color" href="{{ path(route, params|merge({page: current_page - 1})) }}"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        {% endif %}
+        {% if max_page > 0 %}
+        {% for page in 1..max_page %}
+        <li class="page-item {% if page == current_page %}active{% endif %}">
+            <a class="page-link apagination color" href="{{ path(route, params|merge({page: page})) }}">{{ page }}</a>
+        </li>
+        {% endfor %}
+        {% endif %}
+        {% if current_page < max_page %}
+        <li class="page-item">
+            <a class="page-link apagination color" href="{{ path(route, params|merge({page: current_page + 1})) }}"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% endblock %}

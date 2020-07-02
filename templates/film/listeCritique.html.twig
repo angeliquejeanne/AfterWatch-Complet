@@ -1,0 +1,92 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Critiques de {{ film.titre }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/csscontenu/contenucritique.css') }}">
+<style>
+    .backgrounddynamique {
+        background:url({{ 'http://image.tmdb.org/t/p/w780/'~film.affiche }});
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{% if film.affiche == null %}
+
+<body class="background">
+    {% else %}
+
+    <body class="backgrounddynamique">
+        {% endif %}
+
+        <section>
+
+            <h1 class="font size color textc margintop">AfterWatch</h1>
+
+            <main class="flex flexd bk width margina">
+                <a href="{{ path('details_film', { slug: film.slug }) }}"><button class="btn btn-color">précedent</button></a>
+                <section class="margintop margina">
+                    <div class="card mb-4 margint" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="{% if film.affiche %}{{ 'http://image.tmdb.org/t/p/w780/'~film.affiche }}{% else %}{{ asset('img/popcorn.jpg') }}{% endif %}" class="card-img"
+                                    alt="Affiche du Film {{ film.titre }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ film.titre }}</h4>
+                                    <p class="card-text"><span class="gras">Synopsis :</span> {{ film.synopsis }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex jcenter margintop">
+                        <a href="{% if not app.user %}{{ path('app_login') }}{% else %}{{ path('ajout_critique', { slug: film.slug }) }}{% endif %}"><button type="button"
+                                class="btn btn-color marginr">Ajouter une Critique</button></a>
+                    </div>
+                </section>
+                {% for message in app.flashes('submitted') %}
+                    <div class="bg-info">{{ message }}</div>
+                {% endfor %}
+                <section class="margintop margina width">
+                    {% for critique in film.critiques %}
+                    {% if critique.publication == 1 %}
+                    <article class="marginb">
+                        <hr>
+                        <div>
+                            <a class=" flexd textalign"
+                                href="{{ path('critiqueview', {slug: film.slug, slug2: critique.slug }) }}">
+                                <p>Tout voir</p>
+                            </a>
+                        </div>
+                        <div class="marginb margint flex flexdr">
+                            <div class="flex flexd w-100">
+                                <h6 class="margina marginb"><a
+                                        href="{{ path('critiqueview', {slug: film.slug, slug2: critique.slug }) }}">{{ critique.idUtilisateur.username }}
+                                        ~ {{ critique.titre }}</a></h6>
+                                <p class="card-text sizing margina width ligne">
+                                    {% if critique.contenu|length > 80 %}{{ critique.contenu|slice(0,79) }}(...){% else %}{{ critique.contenu }}{% endif %}
+                                </p>
+                                <div class="flex jend stars" value="{{ critique.note }}">
+                                    <div class="note">{{ critique.note }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    {% else %}
+
+                    {% endif %}
+                    {% endfor %}
+                </section>
+            </main>
+    </body>
+    {% endblock %}
+
+    {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/utilisateur/critique-stars.js') }}"></script>
+    {% endblock %}

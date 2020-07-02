@@ -1,0 +1,125 @@
+{% extends 'baseAdmin.html.twig' %}
+
+
+{% block title %} {{ parent() }} - Films{% endblock %}
+
+{% block body %}
+<div class="flex marginl marginb">
+    <a href="{{ path('addfilm') }}"><button type="button" class="btn btn-info btn-color">Ajouter un
+            Film</button></a>
+</div>
+<section class="flex jcenter">
+
+
+    <table id="thèmes" class=" textc marginb">
+
+        <div id="successmess" class="flex ">
+            {% for message in app.flashes('success') %}
+            {{ message }}
+            {% endfor %}
+        </div>
+
+        <thead class=" titre gras sizeg">
+            <th>Affiches</th>
+            <th>Titres</th>
+            <th>Slug</th>
+            <th>Dates de sortie</th>
+            <th>Réalisateurs</th>
+            <th>Scénaristes</th>
+            <th>Acteurs Principaux</th>
+            <th>Genre</th>
+            <th>Durée</th>
+            <th>Nationalité</th>
+            <th>CNC</th>
+            <th>URL Bandes-Annonces</th>
+            <th>Synopsis</th>
+            <th>Actions</th>
+        </thead>
+
+        <tbody>
+            {% for film in films %}
+            <tr>
+                <td>
+                    <img class="minimage"
+                        src="{% if film.affiche %}{{ 'http://image.tmdb.org/t/p/w92/'~film.affiche }}{% else %}{{ asset('img/popcorn.jpg') }}{% endif %}"
+                        alt="{{ film.titre }}">
+                </td>
+                <td>{{ film.titre }}</td>
+                <td>{{ film.slug }}</td>
+                <td>{{ film.date|date('d-m-y') }}</td>
+                <td>
+                    {% for realise in film.realise %}
+                    {{ realise.nom }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for scenario in film.scenario %}
+                    {{ scenario.nom }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for acteurjoue in film.acteurjoue %}
+                    {{ acteurjoue.nom }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for genrefilm in film.genrefilm %}
+                    {{ genrefilm.type }}
+                    {% endfor %}
+                </td>
+                <td>{{ film.duree }}</td>
+                <td>{{ film.nationalite }}</td>
+                <td>{% if film.legislation == 0 %}Tous publics{% else %}Interdit {{ film.legislation }} ans{% endif %}
+                </td>
+                <td>{{ film.trailer }}</td>
+                <td>
+                    {% if film.synopsis|length > 80 %}
+                    {{ film.synopsis|slice(0, 79) }} (...)
+                    {% else %}
+                    {{ film.synopsis }}
+                    {% endif %}
+                </td>
+                <td>
+                    <!--<a href="{{ path('film_modifier', {id: film.id}) }}"><button type="button"
+                            class="btn btn-info btn-color marginr">Modifier</button></a>-->
+                    <a href="{{ path('admin_confirmfilmdelete', {id: film.id}) }}"><button type="button"
+                            class="btn btn-info btn-danger">Supprimer</button></a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td>Aucun Film Trouvé</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</section>
+
+<nav class="margintnull">
+    <ul class="pagination">
+        {% if current_page > 1 %}
+        <li class="page-item">
+            <a class="page-link apagination color" href="{{ path('admin', {page: current_page - 1}) }}"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        {% endif %}
+        {% if max_page > 0 %}
+        {% for page in 1..max_page %}
+        <li class="page-item {% if page == current_page %}active{% endif %}">
+            <a class="page-link apagination  color" href="{{ path('admin', {page: page}) }}">{{ page }}</a>
+        </li>
+        {% endfor %}
+        {% endif %}
+        {% if current_page < max_page %}
+        <li class="page-item">
+            <a class="page-link apagination color" href="{{ path('admin', {page: current_page + 1}) }}"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+
+
+{% endblock %}

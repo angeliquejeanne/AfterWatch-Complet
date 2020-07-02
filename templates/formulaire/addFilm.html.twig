@@ -1,0 +1,128 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %} {{ parent() }} - Ajouter Film{% endblock %}
+
+{% block body %}
+<div class="bg-danger">
+    {% for error in app.flashes('error') %}
+    {{ error }}
+    {% endfor %}
+</div>
+<section class="flex jcenter margintop">
+    <div id="scrollform" class="jumbotron scrollform">
+
+        <h2 class="textc">Ajouter un film</h2>
+
+        <div id="selectedFilm" class="row">
+            <div id="titre" class="col-lg-8"></div>
+            <div id="director" class="col-lg-4"></div>
+            <div id="affiche" class="col-lg-8"></div>
+            <div id="date" class="col-lg-4"></div>
+        </div>
+
+        {{ form_start(form) }}
+
+        <div class="form-group">
+            <!--<input type="file" class="form-control-file" id="inputAffiche">-->
+            {{ form_row(form.affiche, {'type': 'hidden'}) }}
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <!--<label for="inputTitre">Titre</label>
+                <input type="text" class="form-control" id="inputTitre" placeholder="Titre">-->
+                {{ form_row(form.titre) }}
+            </div>
+            <div class="form-group col-md-6">
+                <!--<label for="inputDate">Date de sortie</label>
+                <input type="text" class="form-control" id="inputDate" placeholder="Date de sortie">-->
+                {{ form_widget(form.date, {'type': 'hidden'}) }}
+            </div>
+        </div>
+        <div class="form-group  col-md-6">
+            <!--<label for="inputReal">Réalisateur(s)</label>
+                <input type="hidden" class="form-control" id="inputReal" placeholder="Réalisateur(s)">
+                -->
+        </div>
+        <div class="form-group  col-md-6">
+            <!--<label for="inputScénariste">Scénariste(s)</label>
+                <input type="hidden" class="form-control" id="inputScénariste" placeholder="Scénariste(s)">
+                -->
+        </div>
+        <div class="form-group  col-md-6">
+            <!--<label for="inputActeurs">Acteur(s)</label>
+                <input type="hidden" class="form-control" id="inputAct" placeholder="Acteur(s)">
+                -->{{ form_row(form.act, {'type': 'hidden'}) }}
+        </div>
+        <div class="form-group  col-md-6">
+            <!--<label for="inputGenre">Genre(s)</label>
+                <input type="hidden" class="form-control" name="inputGenre" id="inputGenre" placeholder="Genre(s)">-->
+            {{ form_row(form.genre, {'type': 'hidden'}) }}
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <!--<label for="inputDurée">Durée(s)</label>
+                <input type="text" class="form-control" id="inputDurée" placeholder="Durée(s)">-->
+                {{ form_row(form.duree, {'type': 'hidden'}) }}
+            </div>
+            <div class="form-group col-md-6">
+                <!--<label for="inputNationnalité">Nationnalité(s)</label>
+                <input type="text" class="form-control" id="inputNationnalité"  placeholder="Nationnalité(s)">-->
+                {{ form_row(form.nationalite, {'type': 'hidden'}) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <!--<label for="inputCNC">Limite d'âge</label>
+                <input type="text" class="form-control" id="inputCNC" placeholder="Age requis">-->
+                {{ form_row(form.legislation) }}
+            </div>
+            <div class="form-group col-md-6">
+                <!--<label for="inputBA">Bande-annonce</label>
+                <input type="text" class="form-control" id="inputBA"  placeholder="URL">-->
+                {{ form_row(form.trailer, {'type': 'hidden'}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <!--<label for="inputSynopsis">Synopsis</label>
+            <textarea type="text" class="form-control" id="inputSynopsis" placeholder="Synopsis"></textarea>-->
+            {{ form_row(form.real, {'type': 'hidden'}) }}
+            {{ form_row(form.scen, {'type': 'hidden'}) }}
+        </div>
+        <div class="flex jcenter">
+            <button id="boutonPopu" class="btn btn-color" formnovalidate>Faire la recherche</button>
+            <h4 id="messageRecherche"></h4>
+        </div>
+        <div class="flex jbetween margintop">
+            <a href="{{ path('admin',{page: 1}) }}"><button type="button"
+                    class="btn btn-danger btnsup">Annuler</button></a>
+            <button type="submit" id="submitFilm" class="btn btn-success marginr" formnovalidate>Valider</button>
+        </div>
+
+        {{ form_end(form) }}
+
+
+        
+
+        <div id="selection-films">
+            <table class="table table-bordered" id="infos">
+            </table>
+            <!--<div id="titre"></div>
+    <div id="affiche"></div>
+    <div id="genres"></div>
+    <div id="synopsis"></div>
+    <div id="date"></div>
+    <div id="duree"></div>
+    <div id="nationalite"></div>
+    <div id="trailer"></div>
+    <div id="reals"></div>
+    <div id="acts"></div>
+    <div id="scens"></div>-->
+        </div>
+    </div>
+    <!--</section>-->
+    {% endblock %}
+
+    {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/admin/add_film.js') }}"></script>
+    {% endblock %}

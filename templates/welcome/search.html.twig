@@ -1,0 +1,89 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Recherche de films{% endblock %}
+
+{% block content %}
+
+<div class="main-contenu mt-4">
+
+    <div class="contenu-main margintop">
+
+        <div class="contenu-a-affiche">
+            <h1 class="title split-character intro-site">Résultat de la recherche pour "{{ query }}"</h1>
+        </div>
+        <div class="contenu-a-affiche">
+            <div id="contenu-a-affiche"></div>
+
+
+
+            <section class="t-recherche">
+                <div>
+                    <div id="t-recherche">
+                        <div class="par-film">
+                            <h3>Film(s) correspondant par titre à "{{ query }}" :</h3>
+                        </div>
+                        {% if films %}
+                        <ul>
+                            {% for film in films %}
+
+                            <li><a href="{{ path('details_film',{slug: film.slug}) }}">- {{ film.titre }} </a></li>
+
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p>aucun</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+
+            {% if directors %}
+            <section class="t-recherche">
+                <div>
+                    <div class="par-real">
+                        <h3>Film(s) correspondant(s) par réalisateur :</h3>
+                    </div>
+                    {% for director in directors %}
+
+                    <h5>{{ director.nom }}</h5>
+                    <div id="t-recherche">
+                        {% for filmDir in director.films %}
+
+                        <a href="{{ path('details_film',{slug: filmDir.slug}) }}">- {{ filmDir.titre }}</a>
+
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            {% if actors %}
+            <section class="t-recherche">
+                <div>
+                    <div class="par-acteur">
+                        <h3>Film(s) correspondant(s) par acteur :</h3>
+                    </div>
+                    {% for actor in actors %}
+
+                    <h5>{{ actor.nom }}</h5>
+                    <div id="t-recherche">
+                        {% for filmAct in actor.films %}
+
+                        <a href="{{ path('details_film',{slug: filmAct.slug}) }}">- {{ filmAct.titre }}</a>
+
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

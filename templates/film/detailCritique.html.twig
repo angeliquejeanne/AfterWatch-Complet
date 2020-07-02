@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Critiques de {{ film.titre }}{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/csscontenu/contenucritique.css') }}">
+<style>
+    .backgrounddynamique {
+        background:url({{ 'http://image.tmdb.org/t/p/w780/'~film.affiche }});
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{% if film.affiche == null %}
+
+<body class="background">
+    {% else %}
+
+    <body class="backgrounddynamique">
+        {% endif %}
+
+        <h1 class="font size color textc margintop">AfterWatch</h1>
+
+        <main class="main flex flexd marget bk width margina">
+            <a href="{{ path('critiques', { slug: film.slug }) }}"><button class="btn btn-color">précedent</button></a>
+            <section class="marget margina">
+                <!--section qui comprend la carte du film-->
+                <div class="card mb-3 margint" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="{% if film.affiche %}{{ 'http://image.tmdb.org/t/p/w780/'~film.affiche }}{% else %}{{ asset('img/popcorn.jpg') }}{% endif %}" class="card-img"
+                                alt="Affiche du Film {{ film.titre }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ film.titre }}</h4>
+                                <p class="card-text"><span class="gras">Synopsis :</span> {{ film.synopsis }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--section qui comprend Le nom et le titre et la critique-->
+            <section class="margintop margina width">
+                <article class="marginb">
+                    <h5 class="margint flex jcenter">{{ critique.titre }}</h5>
+                    <h6 class="margintop flex jcenter">Auteur: {{ critique.idUtilisateur.username }}</h6>
+                    <div class="flex jcenter marginb stars" value="{{ critique.note }}">
+                        <div class="note">{{ critique.note }}</div>
+                    </div>
+                    <p class="card-text sizing justify margina width ligne">
+                        {{ critique.contenu }}
+                    </p>
+                </article>
+            </section>
+        </main>
+
+        {% endblock %}
+
+        {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/utilisateur/critique-stars.js') }}"></script>
+        {% endblock %}
